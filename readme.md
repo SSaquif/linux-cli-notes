@@ -42,6 +42,8 @@ All things command line
 
 5. In linux we use `/`(forward slash) in pathnames, where as in windows we use `\`(backslash)
 
+6. In linux `everything is a file including directories, devices, network sockets, pipes` and so on
+
 ## Keyboard Shortcuts
 
 > 1. CTRL + A – takes you to the beginning of the line
@@ -107,7 +109,7 @@ Ubunt has `apt` which is short for `advanced package tools`
 
 The package manger has access to all packages through a package database on our machine. `apt list` will show our machine's package database.
 
-Very Frequently this pacakge db is outdated (or perhaps cleared and keeps the list of installed packages only). For this reason install software using apt is a 2 step process. Otherwise installation might fail
+Very Frequently this pacakge db is outdated (or perhaps cleared and keeps the list of installed packages only). For this reason installing software using `apt` is a `2 step process`. Otherwise installation might fail
 
 ```bash
 # update machine's pacakge db
@@ -145,6 +147,24 @@ apt remove nano
 
 ## Linux File System
 
+In linux `everything is a file including directories, devices, network sockets, pipes` and so on
+
+```bash
+/       # root dir
+ /bin   # binaries or programs
+ /boot  # all files related to booting
+ /dev   # devices, files needed to access devices
+ /etc   # editable text configurations (opinionated), where we have config files
+ /home  # In a machine with many user, each user will have a home dir here
+ /lib   # for library files, like software library dependencies
+ /proc  # files that represent running processes
+ /root  # Home directory of root user
+ /usr   # unix system resources
+ /var   # varible, here we keep files that are updated frequently like lock files
+```
+
+\*for me `cd ~` == `cd /home/sadnan`
+
 ## Navigating File System
 
 ## Manipulating Files & Directories
@@ -171,3 +191,7 @@ apt remove nano
 
 [Section from Mosh's Docker Course](https://codewithmosh.com/courses/the-ultimate-docker-course/lectures/31447539)
 [Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
+
+```
+
+```
