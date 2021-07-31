@@ -50,11 +50,12 @@ All things command line
 > 2. CTRL + E – takes you to the end of the line
 > 3. CTRL + K – "yank" everything after the cursor
 > 4. CTRL + U – "yank" everything before the cursor
-> 5. CTRL + Y – "paste" (paste in quotes because it doesn't actually go into your system clipboard) everything you yanked
-> 6. CTRL + L – clear the screen
-> 7. CTRL + R – reverse search through history
-> 8. CTRL + SHIFT + C – copy
-> 9. CTRL + SHIFT + P – paste
+> 5. CTRL + W – "yank" until the first space before the cursor (so like 1 word/ command)
+> 6. CTRL + Y – "paste" (but it doesn't actually go into your system clipboard) everything you yanked
+> 7. CTRL + L – clear the screen
+> 8. CTRL + R – reverse search through history
+> 9. CTRL + SHIFT + C – copy
+> 10. CTRL + SHIFT + P – paste
 
 ## Signals
 
@@ -158,7 +159,7 @@ In linux `everything is a file including directories, devices, network sockets, 
  /proc  # files that represent running processes
  /root  # Home directory of root user
  /usr   # unix system resources
- /var   # varible, here we keep files that are updated frequently like lock files
+ /var   # variable, here we keep files that are updated frequently like lock files
 ```
 
 \*for me `cd ~` == `cd /home/sadnan`
@@ -176,7 +177,41 @@ cd ~ # go to home directory
 
 ## Manipulating Files & Directories
 
+```bash
+mkdir dirName             # create directory
+touch file1.txt file2.txt # create 1 or multiple file
+mv file1.txt hello.txt    # rename file1.txt to hello.txt
+mv file2.txt /sadnan      # move file2.txt into the /sadnan dir
+rm file1.txt file2.txt    # remove files(s)
+rm file*                  # remove files using pattern (regex)
+rm -r dirName             # remove recursively, for directories
+```
+
 ## Editing and Viewing Files
+
+`cat` stands for concatenate. Has many purposes.
+
+```bash
+ # see the contents of file on terminal
+ # useful for small files
+cat file1.txt
+
+# see a bit of the file at a time
+# press enter to move to next line, q to exit
+# can't move up, only down
+more filename
+
+# less == open a file for read mode (navigate like vim)
+# good for reading long files, if you can't use VSCode or something
+# less is the newer version of more, move in both directions
+less filename
+
+# head == get stuff from top of file (default = 1st 10 lines)
+head ~/.bash_history
+
+# tail == get stuff from end of file
+tail ~/.bash_history
+```
 
 ## Redirection
 
