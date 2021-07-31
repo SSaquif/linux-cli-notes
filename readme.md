@@ -18,9 +18,10 @@ All things command line
   - [Navigating File System](#navigating-file-system)
   - [Manipulating Files & Directories](#manipulating-files--directories)
   - [Editing and Viewing Files](#editing-and-viewing-files)
-  - [Redirection](#redirection)
+  - [stdin, stdout & Redirection (piping)](#stdin-stdout--redirection-piping)
   - [Searching for Text](#searching-for-text)
   - [Finding Files and Directories](#finding-files-and-directories)
+  - [Chaining Commands](#chaining-commands)
   - [Environmental Variables](#environmental-variables)
   - [Managing Processes](#managing-processes)
   - [Managing Users](#managing-users)
@@ -93,8 +94,10 @@ man less
 cat filename
 
 # grep
-# Prints out all the lines that contains the word Hamlet in the hamlet.txt
-grep "Hamlet" hamlet.txt
+# Prints out all the LINES that contains the word Hamlet in the hamlet.txt
+grep Hamlet hamlet.txt
+# also valid
+grep "Hamlet thou" hamlet.txt
 
 ### ssh used to connect to other computers from terminal
 ssh 192.168.50.02 #just an example
@@ -192,8 +195,8 @@ rm -r dirName             # remove recursively, for directories
 `cat` stands for concatenate. Has many purposes.
 
 ```bash
- # see the contents of file on terminal
- # useful for small files
+# see the contents of file on terminal
+# useful for small files
 cat file1.txt
 
 # see a bit of the file at a time
@@ -213,11 +216,74 @@ head ~/.bash_history
 tail ~/.bash_history
 ```
 
-## Redirection
+## stdin, stdout & Redirection (piping)
+
+Linux has a default standard input and output, `stdin` and `stdout`
+
+`Keyboard` is the `stdin`
+
+`Screen/Terminal` is the `stdout`
+
+`>` can be used to redirect/change the `stdout`
+
+`<` can be used to redirect/change the `stdin` (not that manu use cases on the terminal)
+
+```bash
+# All this commands should create a newfile, if one does not exist
+cat file1.txt                           # shows the content on screen, because screen is stdout
+cat file1.txt > file2.txt               # concatnates file1.txt to file2.txt
+cat file1.txt file2.txt > combined.txt  # concatnates file1.txt & file2.txt in combined.txt
+echo hello > newfile.txt                # log something to file, useful for writing single lines to file
+echo hello >> newfile.txt               # echo to end of file and not overwrite, which is default behaviour
+ls -l /etc > newfile.txt                # log the output of ls command into newfile.txt
+```
 
 ## Searching for Text
 
+`grep` stands for `global regular expression print`
+
+The search is case sensitive by default
+
+can use `-i` to make it case insensitive
+
+```bash
+grep Hamlet hamlet.txt           # get the LINES with word Hamlet the in file
+grep "Hamlet thou" hamlet.txt    # also valid
+grep -i "Hamlet thou" hamlet.txt # making search case in-sensitive
+                                 # **  Remember everything is a file in linux  **
+grep -i root /etc/passwd         # Therefore can search special files like passwd
+                                 # folders are also files
+grep -ir hello .                 # Search all files in Current Folder, use -r option
+
+# search in multiple files
+grep -i hello file1.txt file2.txt
+grep -i hello file*
+```
+
 ## Finding Files and Directories
+
+We have the `find` command to find files and directories and not just text inside them.
+
+```bash
+                                       # no args = prints all (hidden files too)
+find                                   # the files and directories in the current folder
+find -type d                           # find directories only
+find -type f                           # find files only
+                                       # Can use patterns
+find -type f -name "f*"                # find all the files starting with f
+find -type f -iname "f*"               # same as above but case in-sensitive
+find / -type f -iname "f*"             # same as above but search directory specified as "/" (root dir)
+find / -type f -name "f*" > file.txt   # Same as above but write to output to file.txt
+```
+
+## Chaining Commands
+
+There are a few ways to chain commands
+
+1. ; (semi-colon)
+2. && (logical and)
+3. || (logical or)
+4. | (pipe)
 
 ## Environmental Variables
 
