@@ -75,6 +75,10 @@ tail ~/.bash_history
 # check command history
 history
 
+# list all the binaries (programs and commands u use)
+# except for the custom ones I beleive
+ls /bin
+
 # less == open a file for read mode (navigate like vim)
 # good for reading long files, if you can't use VSCode or something
 # less is the newer version of more
@@ -93,12 +97,6 @@ grep "Hamlet" hamlet.txt
 
 ### ssh used to connect to other computers from terminal
 ssh 192.168.50.02 #just an example
-
-## go to root directory
-cd /
-
-## go to home directory
-cd ~
 ```
 
 ## Managing packages
@@ -166,6 +164,15 @@ In linux `everything is a file including directories, devices, network sockets, 
 \*for me `cd ~` == `cd /home/sadnan`
 
 ## Navigating File System
+
+```bash
+
+pwd  # list items
+ls   # list items
+cd   # change dir
+cd / # list items
+cd ~ # go to home directory
+```
 
 ## Manipulating Files & Directories
 
