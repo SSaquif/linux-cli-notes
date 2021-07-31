@@ -1,14 +1,26 @@
-### Resources
+# The Linux CLI
 
-[Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
+All things command line
 
-### The Linux CLI
+## Contents
 
-#### Notes
+<!-- toc -->
+
+- [The Linux CLI](#the-linux-cli)
+  - [Contents](#contents)
+  - [Genral Things to Know](#genral-things-to-know)
+  - [Keyboard Shortcuts](#keyboard-shortcuts)
+  - [Signals](#signals)
+  - [Useful commands](#useful-commands)
+  - [Resources](#resources)
+
+<!-- tocstop -->
+
+## Genral Things to Know
 
 1. When copying anything to the terminal make sure you trust the source: <br> For example there could be a secret return char at the eol and the moment you paste it, it will run without hitting enter. Websites could use JS to switch what you actually thought you copied with something malicious, that could steal all your passwords etc.
 
-#### Shortcuts
+## Keyboard Shortcuts
 
 > 1. CTRL + A – takes you to the beginning of the line
 > 2. CTRL + E – takes you to the end of the line
@@ -20,14 +32,14 @@
 > 8. CTRL + SHIFT + C – copy
 > 9. CTRL + SHIFT + P – paste
 
-#### Signals
+## Signals
 
 > 1. CTRL + C – Signal Interrupt == SIGINT
 > 2. CTRL + D – Signal Quit == SIGQUIT
-> 3. SIGKILL == kill -9
-> 4. kill -l == list all valid signals (see that 9 is SIGKILL)
+> 3. SIGKILL – kill -9
+> 4. kill -l – list all valid signals (see that 9 is SIGKILL)
 
-#### Useful commands
+## Useful commands
 
 ```bash
 
@@ -56,3 +68,8 @@ grep "Hamlet" hamlet.txt
 ### ssh used to connect to other computers from terminal
 ssh 192.168.50.02 #just an example
 ```
+
+## Resources
+
+[Section from Mosh's Docker Course](https://codewithmosh.com/courses/the-ultimate-docker-course/lectures/31447539)
+[Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
