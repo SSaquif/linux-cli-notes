@@ -48,4 +48,11 @@ man less
 # cat = concatnate to stdout
 # following prints to screen
 can filename
+
+# grep
+# Prints out all the lines that contains the word Hamlet in the hamlet.txt
+grep "Hamlet" hamlet.txt
+
+### ssh used to connect to other computers from terminal
+ssh 192.168.50.02 #just an example
 ```
