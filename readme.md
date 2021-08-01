@@ -38,6 +38,7 @@ All things command line
   - [Managing Groups](#managing-groups)
     - [`/etc/group`](#etcgroup)
   - [File Permissions](#file-permissions)
+    - [Changing file permissions](#changing-file-permissions)
   - [Resources](#resources)
 
 <!-- tocstop -->
@@ -491,6 +492,8 @@ Have similar commands to managing users. Users of the same group have same permi
 
 Every linux user has a primary group, and 0 or more secondary groups
 
+By default every user is placed into a group whose name is same as the user name. It is also the default primary group for the user. This is done for file permission purposes mainly
+
 First group listed is the primary group.
 
 Can use `usermod` to update user groups
@@ -508,8 +511,45 @@ In this file we can see all the groups for the system
 
 ## File Permissions
 
-```bash
+See the `10 characters` string before each file when you list them like `ls -l`,
 
+First character signifies whether it's file or directory
+
+1. `d` = directory
+2. `-` = file
+
+Remaining 9 represent 3 groups. Left to right they are
+
+1. First 3: Represents permissions for the `user` who owns this file
+2. Second 3: Represents permissions for the `group` that owns this file
+3. Last 3: Represents permissions for everyone else
+
+When you list files using something like `ls -l`. The `first name, 3rd column usually,` is the user who owns the file. The `next name or 4th column` is the group that owns the file
+
+For each group we have `r`, `w`, `x` or `-`
+
+1. r = readable to group
+2. w = writableto group
+3. x = executable to group
+4. - = not r/w/x to group
+
+For directories having `x` or `execute` means we have permission to go into the directory, ie `cd` into it
+By default all directories have the 'x' or `execute` permission
+
+### Changing file permissions
+
+We use the change mode command to change file permissions `chmod`
+
+We can chose which groups (user/group/others) permission to change using `u`, `g` or `o` switches
+
+> Side Note: You usually have to update permissions of newly created `shell scripts`
+
+```bash
+chmod u+x filename  # add execute permission for user
+chmod g-x filename  # remove execute permission for group
+                          # add execute and write permissions
+                          # remove read permission
+chmod og+x+w-r filename   # for groups others and group
 ```
 
 ## Resources
