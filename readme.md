@@ -17,15 +17,26 @@ All things command line
   - [Linux File System](#linux-file-system)
   - [Navigating File System](#navigating-file-system)
   - [Manipulating Files & Directories](#manipulating-files--directories)
+  - [multi line commands `\`](#multi-line-commands-)
   - [Editing and Viewing Files](#editing-and-viewing-files)
   - [stdin, stdout & Redirection (piping)](#stdin-stdout--redirection-piping)
   - [Searching for Text](#searching-for-text)
   - [Finding Files and Directories](#finding-files-and-directories)
   - [Chaining Commands](#chaining-commands)
+    - [; (semi-colon)](#-semi-colon)
+    - [&& (logical and)](#-logical-and)
+    - [|| (logical or)](#-logical-or)
+    - [| (pipe)](#-pipe)
   - [Environmental Variables](#environmental-variables)
+  - [PATH, .bashrc, export and alias](#path-bashrc-export-and-alias)
   - [Managing Processes](#managing-processes)
+    - [lsof](#lsof)
   - [Managing Users](#managing-users)
-  - [Managing Gropus](#managing-gropus)
+  - [User's Config files](#users-config-files)
+    - [`/etc/passwd`](#etcpasswd)
+    - [`/etc/shadow`](#etcshadow)
+  - [Managing Groups](#managing-groups)
+    - [`/etc/group`](#etcgroup)
   - [File Permissions](#file-permissions)
   - [Resources](#resources)
 
@@ -99,8 +110,13 @@ grep Hamlet hamlet.txt
 # also valid
 grep "Hamlet thou" hamlet.txt
 
-### ssh used to connect to other computers from terminal
+# ssh used to connect to other computers from terminal
 ssh 192.168.50.02 #just an example
+
+# multi line commands
+mkdir hello;\
+> cd hello;\
+> echo done
 ```
 
 ## Managing packages
@@ -188,6 +204,16 @@ mv file2.txt /sadnan      # move file2.txt into the /sadnan dir
 rm file1.txt file2.txt    # remove files(s)
 rm file*                  # remove files using pattern (regex)
 rm -r dirName             # remove recursively, for directories
+```
+
+## multi line commands `\`
+
+Use `\`
+
+```bash
+mkdir hello;\
+> cd hello;\
+> echo done
 ```
 
 ## Editing and Viewing Files
@@ -280,26 +306,213 @@ find / -type f -name "f*" > file.txt   # Same as above but write to output to fi
 
 There are a few ways to chain commands
 
-1. ; (semi-colon)
-2. && (logical and)
-3. || (logical or)
-4. | (pipe)
+They are `executed left to right`
+
+### ; (semi-colon)
+
+If a command files, it will still try to execute the next one as long as there is commands remaining
+
+```bash
+# doesn't care if a command fails, continues on
+mkdir test; cd test; echo done
+```
+
+### && (logical and)
+
+If a command fails, then stops. Does not continue
+
+```bash
+# stop on failure
+mkdir test; cd test; echo done
+```
+
+### || (logical or)
+
+If command passes then stops, continues if command fails. only one command will run
+
+```bash
+# stops on success (one or the other)
+mkdir test; cd test; echo done
+```
+
+### | (pipe)
+
+Output of current command is the Input of the next command
+
+```bash
+# scroll through /bin
+ls  /bin | less
+```
 
 ## Environmental Variables
 
+Variables used to store config settings. They are `case sensitive` like pretty much everything in linux.
+
+We can temporarily add enviroment variables to the current terminal session using `export`. The are removed once the session ends
+
+You can `permanently` add new envirometal variables by adding them to your `bash profile`, in Ubuntu it's the `.bashrc` file. See [PATH, .bashrc, export and alias](#path-bashrc-export-and-alias)
+
+```bash
+printenv                # see all env variables
+print PATH              # print a env variable
+echo $PATH              # same as above
+export DB_USER=saad     # ad env var for current session
+```
+
+## PATH, .bashrc, export and alias
+
+`PATH` is where the OS checks for all installed programs. It's a list of folders.
+
+The `.bashrc` file is a script file that’s executed when a user logs in. The file itself contains a series of configurations for the terminal session. This includes setting up or enabling: coloring, completion, shell history, command aliases, and more.
+
+If you edit the file, you have to run it again
+
+```bash
+. ./.bashrc  # run script
+```
+
+We can add new folders to `PATH` using `export`
+
+Finally we can create new names for commands using `alias`. Often done after adding new software folder to `PATH`
+
+Examples from my `.bashrc` file.
+
+```bash
+# Adding folder $HOME/Bash-Scripts to PATH
+if it exists
+if [ -d $HOME/Bash-Scripts ]; then
+    export PATH="$HOME/Bash-Scripts:$PATH"
+fi
+
+alias cbwd='cbwd.sh'
+alias cbds='cbds.sh'
+alias jupnb='jupnb.sh'
+alias astd='astd.sh'
+
+# Adding Krita app files to PATH
+if [ -d $HOME/Krita ]; then
+    export PATH="$HOME/Krita:$PATH"
+fi
+# alias for really long command
+alias krita='krita-4.2.9-x86_64.appimage'
+
+# Setting up env var JAVA_HOME to point at default JDK
+export JAVA_HOME=/usr/lib/jvm/jdk-11.0.11+9
+
+# Adding ANDROID_SDK application folders to PATH
+# Creating an alias to run the shell script
+export ANDROID_SDK=/home/sadnan/Android/Sdk
+export PATH=/home/sadnan/Android/Sdk/platform-tools:$PATH
+alias astd='astd.sh'
+```
+
 ## Managing Processes
+
+A process is an instance of a running program,
+
+We can list all processes using `ps` but I prefer `lsof` (built in for linux dists)
+
+```bash
+ps           #see all running processes for the session I beleive
+# Output of ps, see table for brakdown
+   PID TTY          TIME CMD
+ 260761 pts/0    00:00:00 bash
+ 263970 pts/0    00:00:00 ps
+
+sleep 3      # sends terminal to sleep for 3 seconds
+sleep 100 &  # sleep for 100 sec in background, can still use terminal
+kill pid     # kill process with given pid
+kill -9 pid  # 9 means KILL signal that is not catchable or ignorable.
+```
+
+|            | Details                                                                       |
+| :--------- | :---------------------------------------------------------------------------- |
+| PID        | process id                                                                    |
+| TTY        | teletype, the type of terminal                                                |
+| pts        | psedo-terminal, a type of terminal (pretty much all terminal seem to be this) |
+| pts/number | all the terminals we open are numbered, this number is the terminal number    |
+
+### lsof
+
+The lsof (list open files) command returns the user processes that are actively using a file system. It is sometimes helpful in determining why a file system remains in use and cannot be unmounted. Remember everything is a file in linux.
+
+Morea about [`lsof`](https://www.geeksforgeeks.org/lsof-command-in-linux-with-examples/)
 
 ## Managing Users
 
-## Managing Gropus
+For root user command prompt ends wit h `#`
+For all other users command prompt ends wit h `$`
+
+```bash
+useradd/mod/del # help menu, when no options
+useradd name    # add a new user, use adduser instead.
+usermod name    # modify an user
+userdel name    # del an user
+
+                # more interactive version of useradd, uses useradd itself
+adduser name    # can set password and additional info for user easily
+
+# Modifying the default shell of a user
+# usermod -s /pathToShell username
+# also see next section
+usermod -s /bin/bash sadnan
+```
+
+## User's Config files
+
+### `/etc/passwd`
+
+Each user has their own configuration file called `passwd` in the `/etc` folder.
+
+The filename is misleading from user pov, passwords are not tored here. Just user account info.
+
+```bash
+cat /etc/passwd  # see the config file in terminal
+```
+
+After modyfying the default shell, you can check for it in the `passwd` file
+
+```bash
+usermod -s /bin/bash sadnan
+cat /etc/passwd
+# it's this line
+# each piece of info is seperated by :
+# x means password is stored somewhere else
+# sadnan:x :1000:1000:Sadnan Saquif,,,:/home/sadnan:/bin/bash
+```
+
+### `/etc/shadow`
+
+Where passwords are stored and only accessible to the rootuser
+
+## Managing Groups
+
+Have similar commands to managing users. Users of the same group have same permissions.
+
+Every linux user has a primary group, and 0 or more secondary groups
+
+First group listed is the primary group.
+
+Can use `usermod` to update user groups
+
+```bash
+groupadd        # no options = help menu
+groudadd devs   # add a group
+groudadd devs   # add a group
+groups uname    # see all the groups of the user
+```
+
+### `/etc/group`
+
+In this file we can see all the groups for the system
 
 ## File Permissions
+
+```bash
+
+```
 
 ## Resources
 
 [Section from Mosh's Docker Course](https://codewithmosh.com/courses/the-ultimate-docker-course/lectures/31447539)
 [Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
-
-```
-
-```
