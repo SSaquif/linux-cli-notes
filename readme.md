@@ -554,5 +554,5 @@ chmod og+x+w-r filename   # for groups others and group
 
 ## Resources
 
-[Section from Mosh's Docker Course](https://codewithmosh.com/courses/the-ultimate-docker-course/lectures/31447539)
-[Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
+- [Section from Mosh's Docker Course](https://codewithmosh.com/courses/the-ultimate-docker-course/lectures/31447539)
+- [Brian Holt's Course Website](https://btholt.github.io/complete-intro-to-linux-and-the-cli/)
