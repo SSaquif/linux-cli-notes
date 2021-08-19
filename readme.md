@@ -551,14 +551,19 @@ chmod g-x filename  # remove execute permission for group
                           # remove read permission
 chmod og+x+w-r filename   # for groups others and group
 
+chmod -R 775 /home/node/app  # This ones uses octal
 # can also use chown
 # chown - change file owner and group
 # common switch -R = recursive
 # see examples below
 
+chown -R node:root /home/node/app
 ```
 
-[chown examples](https://www.thegeekstuff.com/2012/06/chown-examples/)
+`Important:` Look more inot chmod vs chown
+
+- [chown examples](https://www.thegeekstuff.com/2012/06/chown-examples/)
+- [a website for generating chmod commands](https://chmodcommand.com/chmod-775/)
 
 ## Resources
 
