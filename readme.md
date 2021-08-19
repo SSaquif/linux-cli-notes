@@ -126,7 +126,7 @@ Ubuntu other linux distributions have their own package manager (like npm, yarn,
 
 Ubunt has `apt` which is short for `advanced package tools`
 
-The package manger has access to all packages through a package database on our machine. `apt list` will show our machine's package database.
+The package manger has access to all packages through a package database (ie the local 'apt' package cache) on our machine. `apt list` will show our machine's package database.
 
 Very Frequently this pacakge db is outdated (or perhaps cleared and keeps the list of installed packages only). For this reason installing software using `apt` is a `2 step process`. Otherwise installation might fail
 
