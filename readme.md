@@ -550,7 +550,15 @@ chmod g-x filename  # remove execute permission for group
                           # add execute and write permissions
                           # remove read permission
 chmod og+x+w-r filename   # for groups others and group
+
+# can also use chown
+# chown - change file owner and group
+# common switch -R = recursive
+# see examples below
+
 ```
+
+[chown examples](https://www.thegeekstuff.com/2012/06/chown-examples/)
 
 ## Resources
 
