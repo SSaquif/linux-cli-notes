@@ -27,7 +27,7 @@ All things command line
     - [&& (logical and)](#-logical-and)
     - [|| (logical or)](#-logical-or)
     - [| (pipe)](#-pipe)
-  - [Nested Commands, $()](#nested-commands-)
+  - [Nested Commands, `$()`](#nested-commands-)
   - [Environmental Variables](#environmental-variables)
   - [PATH, .bashrc, export and alias](#path-bashrc-export-and-alias)
   - [Managing Processes](#managing-processes)
@@ -346,7 +346,7 @@ Output of current command is the Input of the next command
 ls  /bin | less
 ```
 
-## Nested Commands, $()
+## Nested Commands, `$()`
 
 Sometimes we want to run a command inside another. I mean we want the result of the inner command as part of the outter command. We use $() for that. You can kind of think of it as like a variable but it really isn't imo.
 
