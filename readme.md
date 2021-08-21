@@ -27,6 +27,7 @@ All things command line
     - [&& (logical and)](#-logical-and)
     - [|| (logical or)](#-logical-or)
     - [| (pipe)](#-pipe)
+  - [Nested Commands, $()](#nested-commands-)
   - [Environmental Variables](#environmental-variables)
   - [PATH, .bashrc, export and alias](#path-bashrc-export-and-alias)
   - [Managing Processes](#managing-processes)
@@ -343,6 +344,21 @@ Output of current command is the Input of the next command
 ```bash
 # scroll through /bin
 ls  /bin | less
+```
+
+## Nested Commands, $()
+
+Sometimes we want to run a command inside another. I mean we want the result of the inner command as part of the outter command. We use $() for that. You can kind of think of it as like a variable but it really isn't imo.
+
+```bash
+# Example 1: map source code in host to docker container for live updates
+# Given that src code reside in the pwd
+# we need the result of pwd
+docker run -v $(pwd):/app <image>
+
+# Example 2: remove all containers
+# inner command returns a list of all containers
+docker container rm $(docker container ls -a -q)
 ```
 
 ## Environmental Variables
